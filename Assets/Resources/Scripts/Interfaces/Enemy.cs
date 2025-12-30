@@ -3,7 +3,6 @@ using UnityEngine;
 public abstract class Enemy : MonoBehaviour, IDamageable
 {   
     [SerializeField] protected int health;
-    [SerializeField] protected int attackDamage;
     [SerializeField] protected float speed;
     [SerializeField] protected float targetDistance;
     [SerializeField] protected float cooldown;
@@ -18,7 +17,6 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     public float Speed {get {return speed;} set {speed = value;}}
     public float TargetDistance {get {return targetDistance;} set {targetDistance = value;}}
     public int Health {get {return health;} set {health = value;}}
-    public int Damage {get {return attackDamage;} set {attackDamage = value;}}
     public float Cooldown {get {return cooldown;} set {cooldown = value;}}
     public void Start()
     {
