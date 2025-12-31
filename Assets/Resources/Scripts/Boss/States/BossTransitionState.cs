@@ -9,17 +9,17 @@ public class BossTransitionState : State
         bossContext.IsHurt = false;
     }
     public override void EnterState()
-    {   Debug.Log("transitioning");
+    {   
         bossContext.IntroFinished = 0;
         if (bossContext.CurrentStage == 1)
         {
-            bossContext.Anim.SetTrigger("phaseOne");
+            bossContext.Anim.Play("Phase One");
         } else if (bossContext.CurrentStage == 2)
         {
-            bossContext.Anim.SetTrigger("phaseTwo");
+            bossContext.Anim.Play("Phase Two");
         } else
         {
-            bossContext.Anim.SetTrigger("phaseThree");
+            bossContext.Anim.Play("Phase Three");
         }
         bossContext.AppliedMovementX = 0f;
         bossContext.AppliedMovementY = 0f;

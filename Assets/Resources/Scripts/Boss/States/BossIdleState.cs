@@ -10,8 +10,7 @@ public class BossIdleState : State
     }
     public override void EnterState()
     {
-        Debug.Log("entering idle");
-        bossContext.Anim.SetBool("isIdle", true);
+        bossContext.Anim.Play("Idle");
         bossContext.AppliedMovementX = 0f;
         bossContext.AppliedMovementY = 0f;
         curTime = 0f;
@@ -23,7 +22,6 @@ public class BossIdleState : State
     }
     public override void ExitState()
     {
-        bossContext.Anim.SetBool("isIdle", false);
     }
 
     public override void CheckSwitchStates()
