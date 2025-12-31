@@ -1,0 +1,33 @@
+using UnityEngine;
+public class BossPhaseOneIntroState : State
+{
+    private BossStateMachine bossContext;
+    private BossStateFactory bossFactory;
+    public BossPhaseOneIntroState(BossStateMachine currentContext, BossStateFactory pFactory) : base(currentContext, pFactory)
+    {
+        bossContext = currentContext;
+        bossFactory = pFactory;
+    }
+    public override void EnterState()
+    {   
+        bossContext.IntroFinished = 0;
+        bossContext.AppliedMovementX = 0f;
+        bossContext.AppliedMovementY = 0f;
+    }
+    public override void UpdateState()
+    {
+        CheckSwitchStates();
+    }
+    public override void ExitState()
+    {
+        bossContext.IntroFinished = 0;
+    }
+
+    public override void CheckSwitchStates()
+    {
+        if (bossContext.IntroFinished == 1)
+        {
+            SwitchState(bossFactory.Idle());
+        }
+    }
+}

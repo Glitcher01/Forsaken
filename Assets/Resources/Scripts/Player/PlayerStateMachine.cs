@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 public class PlayerStateMachine : StateMachine, IDamageable
 {
     //control variables
-    [SerializeField] private float runSpeed = 7f;
+    [SerializeField] private  float runSpeed = 7f;
 
     //player input system
     private PlayerInput playerInput;
@@ -128,7 +128,7 @@ public class PlayerStateMachine : StateMachine, IDamageable
             canTakeDamage = Time.time + Cooldown;
             Health -= damage;
             Debug.Log("Health: " + Health);
-            currentState.SwitchState(factory.Hurt());
+            IsHurt = true;
         }
 
         if (Health <= 0f)

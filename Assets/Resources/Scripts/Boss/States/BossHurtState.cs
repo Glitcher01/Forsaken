@@ -1,0 +1,39 @@
+using UnityEngine;
+public class BossHurtState : State
+{
+    private BossStateMachine bossContext;
+    private BossStateFactory bossFactory;
+    public BossHurtState(BossStateMachine currentContext, BossStateFactory pFactory) : base(currentContext, pFactory)
+    {
+        bossContext = currentContext;
+        bossFactory = pFactory;
+    }
+    public override void EnterState()
+    {
+        Debug.Log("hurt");
+        bossContext.HurtFinished = 0;
+        bossContext.Anim.SetBool("isHurt", true);
+        bossContext.AppliedMovementX = 0f;
+        bossContext.AppliedMovementY = 0f;
+    }
+    public override void UpdateState()
+    {
+        CheckSwitchStates();
+    }
+    public override void ExitState()
+    {
+        bossContext.HurtFinished = 0;
+        bossContext.IsHurt = false;
+        bossContext.Anim.SetBool("isHurt", false);
+    }
+
+    public override void CheckSwitchStates()
+    {
+        if (bossContext.HurtFinished == 1)
+        {
+            
+            SwitchState(bossFactory.Idle());
+        }
+        
+    }
+}

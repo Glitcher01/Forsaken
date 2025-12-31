@@ -2095,8 +2095,8 @@ GameObject:
   - component: {fileID: 3739468549806152123}
   - component: {fileID: 8608274547664391747}
   - component: {fileID: 1192884550110139191}
-  - component: {fileID: 6415749645096660923}
   - component: {fileID: 2218031369120437713}
+  - component: {fileID: 721011383080934295}
   m_Layer: 6
   m_Name: HUE
   m_TagString: Boss
@@ -2169,22 +2169,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6415749645096660923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5854882142318390965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2fa1b3c7fba39544bdfa3d2133218af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 0
-  speed: 0
-  targetDistance: 0
-  cooldown: 0
 --- !u!61 &2218031369120437713
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2231,6 +2215,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4.0591846, y: 15.540571}
   m_EdgeRadius: 0
+--- !u!114 &721011383080934295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5854882142318390965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2fa1b3c7fba39544bdfa3d2133218af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6265291377657470592
 GameObject:
   m_ObjectHideFlags: 0

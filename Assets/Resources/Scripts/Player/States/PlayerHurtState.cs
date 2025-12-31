@@ -1,6 +1,4 @@
 using UnityEngine;
-
-//fill this in after basic enemy is created
 public class PlayerHurtState : State
 {
     private PlayerStateMachine playerContext;
@@ -22,6 +20,7 @@ public class PlayerHurtState : State
     }
     public override void ExitState()
     {
+        playerContext.IsHurt = false;
         playerContext.Anim.SetBool("isHurt", false);
     }
 

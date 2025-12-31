@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 public abstract class StateMachine : MonoBehaviour
 {
     //control variables
-    [SerializeField] private readonly float moveSpeed = 5f;
+    [SerializeField] private  float moveSpeed = 5f;
 
     //Game Objects
     private Animator animator;
@@ -19,6 +19,8 @@ public abstract class StateMachine : MonoBehaviour
     //getters and settesr
     public State CurrentState {get {return currentState; } set {currentState = value;}}
     public Animator Anim {get {return animator;}}
+    public Rigidbody2D RB {get {return rb;}}
+    public GameObject Player {get {return player;}}
     public Transform Sprite {get {return sprite;}}
    
     public float AppliedMovementX {get {return appliedMovement.x;} set {appliedMovement.x = value;}}
