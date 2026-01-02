@@ -1,17 +1,22 @@
 using UnityEngine;
 
-public class PlayerIdleState : State
+public class PlayerShootState : State
 {
     private PlayerStateMachine playerContext;
-    public PlayerIdleState(PlayerStateMachine currentContext) : base(currentContext)
+    public PlayerShootState(PlayerStateMachine currentContext) : base(currentContext)
     {
         playerContext = currentContext;
     }
     public override void EnterState()
     {
-        playerContext.Anim.SetBool("isIdle", true);
+        playerContext.Anim.SetTrigger("Shoot");
         playerContext.AppliedMovementX = 0f;
         playerContext.AppliedMovementY = 0f;
+        // // Trigger shoot logic: Instantiate projectile (add this)
+        // if (playerContext.ProjectilePrefab != null && playerContext.FirePoint != null)
+        // {
+        //     Instantiate(playerContext.ProjectilePrefab, playerContext.FirePoint.position, playerContext.FirePoint.rotation);
+        // }
     }
     public override void UpdateState()
     {
@@ -19,7 +24,7 @@ public class PlayerIdleState : State
     }
     public override void ExitState()
     {
-        playerContext.Anim.SetBool("isIdle", false);
+
     }
 
     public override void CheckSwitchStates()
@@ -28,22 +33,20 @@ public class PlayerIdleState : State
         {
             SwitchState(new PlayerHurtState(playerContext));
         }
-        else if (playerContext.IsHitPressed)
+        else if (!playerContext.ShootFinished)
         {
-            SwitchState(new PlayerAttackState(playerContext));
+            return;
         }
-        else if (playerContext.IsShootPressed)
-        {
-            SwitchState(new PlayerShootState(playerContext));
-        } else if (playerContext.Grounded && playerContext.IsJumpPressed)
-        {
-            SwitchState(new PlayerJumpState(playerContext));
-        } else if (playerContext.IsMovementPressed && playerContext.IsRunPressed)
+        playerContext.ShootFinished = false; 
+        if (playerContext.IsMovementPressed && playerContext.IsRunPressed)
         {
             SwitchState(new PlayerRunState(playerContext));
         } else if (playerContext.IsMovementPressed)
         {   
             SwitchState(new PlayerWalkState(playerContext));
-        } 
+        } else
+        {
+            SwitchState(new PlayerIdleState(playerContext));
+        }
     }
 }

@@ -4,6 +4,8 @@ public class PlayerStateMachine : StateMachine, IDamageable
 {
     //control variables
     [SerializeField] private  float runSpeed = 7f;
+    // [SerializeField] private GameObject projectilePrefab;
+    // [SerializeField] private Transform firePoint;
 
     //player input system
     private PlayerInput playerInput;
@@ -12,8 +14,10 @@ public class PlayerStateMachine : StateMachine, IDamageable
     private bool isRunPressed;
     private bool isJumpPressed;
     private bool isHitPressed;
+    private bool isShootPressed;
     private bool isHurt; 
     private bool attackFinished = false;
+    private bool shootFinished = false;
     private bool hurtFinished = false;
     private bool grounded = true;
 
@@ -27,14 +31,19 @@ public class PlayerStateMachine : StateMachine, IDamageable
     public bool IsRunPressed {get {return isRunPressed;} set {isRunPressed = value;}}
     public bool IsJumpPressed {get {return isJumpPressed;} set {isJumpPressed = value;}}
     public bool IsHitPressed {get {return isHitPressed;} set {isHitPressed = value;}}
+    public bool IsShootPressed {get {return isShootPressed;} set {isShootPressed = value;}}
     public bool IsHurt{get {return isHurt;} set {isHurt = value;}}
     public bool AttackFinished {get {return attackFinished; } set {attackFinished = value;}}
+    public bool ShootFinished {get {return shootFinished; } set {shootFinished = value;}}
+
     public bool HurtFinished {get {return hurtFinished; } set {hurtFinished = value;}}
     public bool Grounded {get {return grounded;} set {grounded = value;}}
     public Vector2 CurrentMovementInput {get {return currentMovementInput;}}
     public float RunSpeed {get {return runSpeed;}}
     public int Health {get {return health;} set {health = value;}}
     public float Cooldown {get {return damageCooldown;} set {damageCooldown = value;}}
+    // public GameObject ProjectilePrefab {get {return projectilePrefab;}}
+    // public Transform FirePoint {get {return firePoint;}}
 
     protected override void Init()
     {
@@ -53,6 +62,8 @@ public class PlayerStateMachine : StateMachine, IDamageable
         playerInput.CharacterControls.Jump.canceled += OnJump;
         playerInput.CharacterControls.Hit.started += OnHit;
         playerInput.CharacterControls.Hit.canceled += OnHit;
+        playerInput.CharacterControls.Shoot.started += OnShoot;
+        playerInput.CharacterControls.Shoot.canceled += OnShoot;
 
         Health = 100;
         Cooldown = 1f;
@@ -105,6 +116,10 @@ public class PlayerStateMachine : StateMachine, IDamageable
     {
         isHitPressed = context.ReadValueAsButton();
     }
+    void OnShoot(InputAction.CallbackContext context)
+    {
+        isShootPressed = context.ReadValueAsButton();
+    }
     void OnHurt(InputAction.CallbackContext context)
     {
         isHurt = context.ReadValueAsButton();
@@ -145,6 +160,17 @@ public class PlayerStateMachine : StateMachine, IDamageable
     void OnAttackAnimationFinish()
     {
         AttackFinished = true;
+    }
+
+    void OnShootAnimationStart()
+    {
+        Debug.Log("Shoot animation started");
+        ShootFinished = false;
+    }
+    void OnShootAnimationFinish()
+    {
+        Debug.Log("Shoot animation finished");
+        ShootFinished = true;
     }
 
     void OnHurtAnimationStart()
