@@ -1783,11 +1783,11 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
+  m_UseAutoMass: 1
+  m_Mass: 1.3751717
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 5
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1797,7 +1797,7 @@ Rigidbody2D:
     m_Bits: 64
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &3442591597384145448
 BoxCollider2D:
@@ -1815,7 +1815,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -1881,11 +1881,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   runSpeed: 7
-  jumpForce: 5
+  jumpForce: 20
   dashForce: 30
   dashDamage: 5
-  dashMeter: 10
-  grounded: 1
+  dashMeter: 3
+  grounded: 0
 --- !u!70 &2933974084628620906
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -2166,7 +2166,7 @@ Transform:
   m_GameObject: {fileID: 4022014668055455682}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.97, y: 6.49, z: 0}
+  m_LocalPosition: {x: 5.06, y: 11.31, z: 0}
   m_LocalScale: {x: 1.1999998, y: 1.1999998, z: 1.1999998}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2775,8 +2775,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trailMarker: {fileID: 5763858699021158748, guid: 9705378df9de51f478c8fbc36ce8dff1, type: 3}
-  numMarkers: 5
-  timeBetweenMarkers: 0.1
+  numMarkers: 10
+  timeBetweenMarkers: 0.01
 --- !u!1 &5253492820763925902
 GameObject:
   m_ObjectHideFlags: 0
@@ -3912,7 +3912,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 72
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
