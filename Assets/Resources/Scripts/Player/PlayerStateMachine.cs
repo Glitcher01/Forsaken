@@ -259,9 +259,11 @@ public class PlayerStateMachine : StateMachine, IDamageable
         if (stage == 2)
         {
             shootUnlocked = true;
+            Debug.Log("you can now shoot! click LMB to shoot at your mouse position");
         } else if (stage == 3)
         {
             dashUnlocked = true;
+            Debug.Log("you can now shoot! click and drag RMB to launch yourself!");
         }
     }
 
