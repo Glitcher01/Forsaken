@@ -6,7 +6,6 @@ public class BossIdleState : State
     public BossIdleState(BossStateMachine currentContext) : base(currentContext)
     {
         bossContext = currentContext;
-        isBaseState = true;
     }
     public override void EnterState()
     {
@@ -28,16 +27,16 @@ public class BossIdleState : State
     {
         if (curTime > bossContext.TimeInIdle)
         {
-            if (bossContext.CurrentStage == 1)
+            if (bossContext.CurrentStage >= 2 && bossContext.GrappleInRange())
             {
-                SwitchState(new StageOne(bossContext));
+                SwitchState(new BossGrappleState(bossContext));
             }
-            else if (bossContext.CurrentStage == 2)
+            else if (bossContext.InRange())
             {
-                SwitchState(new StageTwo(bossContext));
-            } else if (bossContext.CurrentStage == 3)
-            {
-                SwitchState(new StageThree(bossContext));
+                SwitchState(new BossAttackState(bossContext));
+            } else
+            {   
+                SwitchState(new BossWalkState(bossContext));
             }
         } 
     }
