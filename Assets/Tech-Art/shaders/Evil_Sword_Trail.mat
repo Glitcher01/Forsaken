@@ -7,13 +7,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Sword_Trail
+  m_Name: Evil_Sword_Trail
   m_Shader: {fileID: -6465566751694194690, guid: a5b6c0fa17934b74a94c80014647fd22, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -24,10 +24,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -46,16 +42,13 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _AccentColor: {r: 0.764151, g: 0, b: 0.6071867, a: 0}
-    - _Color01: {r: 1, g: 0.4575472, b: 0.8887276, a: 1}
-    - _Color02: {r: 0.5882353, g: 0.9652255, b: 1, a: 1}
-    - _DissolveSpeed: {r: -0.5, g: 0, b: 0, a: 0}
-    - _Emissive: {r: 1.498039, g: 0.6147615, b: 1.147148, a: 0}
-    - _MainTexSpeed: {r: -0.1, g: 0, b: 0, a: 0}
+    - _AccentColor: {r: 1, g: 0, b: 0, a: 1}
+    - _DissolveSpeed: {r: 0.5, g: 0, b: 0, a: 0}
+    - _Emissive: {r: 2.1185474, g: 0, b: 0, a: 1}
     - _SlashColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &7250011084620277386
+--- !u!114 &8056029692669062374
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
