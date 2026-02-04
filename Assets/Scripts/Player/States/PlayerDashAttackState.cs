@@ -25,6 +25,7 @@ public class PlayerDashAttackState : State
         Vector2 newPos = Vector2.MoveTowards(playerContext.Player.transform.position, endGoal, playerContext.DashSpeed * Time.fixedDeltaTime);
         if (Vector2.Distance(newPos, endGoal) <= 0.001)
         {
+            playerContext.DashFinished = true;
             CheckSwitchStates();
         } else {
             playerContext.RB.MovePosition(newPos);
@@ -42,6 +43,13 @@ public class PlayerDashAttackState : State
 
     public override void CheckSwitchStates()
     {
-        SwitchState(new PlayerIdleState(playerContext));
+        if (playerContext.IsRunPressed)
+        {
+            SwitchState(new PlayerRunState(playerContext));
+        } else
+        {
+            SwitchState(new PlayerIdleState(playerContext));
+        }
+        
     }
 }

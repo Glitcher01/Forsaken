@@ -98,16 +98,16 @@ public class PlayerStateMachine : StateMachine, IDamageable
         playerInput.CharacterControls.Move.started += OnMovementPerformed;
         playerInput.CharacterControls.Move.canceled += OnMovementCancelled;
         playerInput.CharacterControls.Move.performed += OnMovementPerformed;
-        playerInput.CharacterControls.Run.started += OnRun;
-        playerInput.CharacterControls.Run.canceled += OnRun;
+        playerInput.CharacterControls.Run.started += OnRunStart;
+        playerInput.CharacterControls.Run.canceled += OnRunEnd;
         playerInput.CharacterControls.Jump.started += OnJump;
         playerInput.CharacterControls.Jump.canceled += OnJump;
         playerInput.CharacterControls.Hit.started += OnHit;
         playerInput.CharacterControls.Hit.canceled += OnHit;
         playerInput.CharacterControls.Shoot.started += OnShoot;
         playerInput.CharacterControls.Shoot.canceled += OnShoot;
-        playerInput.CharacterControls.Dash.started += OnDash;
-        playerInput.CharacterControls.Dash.canceled += OnDash;
+        // playerInput.CharacterControls.Dash.started += OnDash;
+        // playerInput.CharacterControls.Dash.canceled += OnDash;
 
         Health = 100;
         Cooldown = 1f;
@@ -160,9 +160,14 @@ public class PlayerStateMachine : StateMachine, IDamageable
         isMovementPressed = false;
     }
 
-    void OnRun(InputAction.CallbackContext context)
+    void OnRunStart(InputAction.CallbackContext context)
     {
-        isRunPressed = context.ReadValueAsButton();
+        isRunPressed = true;
+        
+    }
+    void OnRunEnd(InputAction.CallbackContext context)
+    {
+        isRunPressed = false;
         
     }
 
