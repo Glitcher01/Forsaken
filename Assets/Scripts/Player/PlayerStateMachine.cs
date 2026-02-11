@@ -50,7 +50,7 @@ public class PlayerStateMachine : StateMachine, IDamageable
     private GameObject dashTrail;
     private Transform groundCheck;
     private Player_Ranged rangedWeapon;
-    [SerializeField] private ParticleSystem damageTakenParticles; // serialized so people know to add it if not in their scene
+    private ParticleSystem damageTakenParticles;
 
     //getters and settesr
     public GameManager Manager {get {return manager;}}

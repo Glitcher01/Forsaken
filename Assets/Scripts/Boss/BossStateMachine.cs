@@ -4,7 +4,6 @@ public class BossStateMachine : StateMachine, IDamageable
 {
     [Header("Object References")]
     [SerializeField] private GameManager manager;
-    [SerializeField] private ParticleSystem damageTakenParticles; // serialized so people know to add it if not in their scene
 
     [Header("Attack Controls")]
     [SerializeField] private float targetDistance;
@@ -30,6 +29,7 @@ public class BossStateMachine : StateMachine, IDamageable
     private int hurtFinished = 0;
     private int introFinished = 0;
     private int health;
+    private ParticleSystem damageTakenParticles;
 
     private float lastDashTime = 0;
 
