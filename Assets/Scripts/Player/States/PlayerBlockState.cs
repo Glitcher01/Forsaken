@@ -9,20 +9,25 @@ public class PlayerBlockState : State
         playerContext = currentContext;
         isBaseState = true;
         this.allowParry = allowParry;
+        
 
     }
     public override void EnterState()
     {
+        playerContext.Anim.SetTrigger("block");
         if (allowParry) playerContext.StartParryCooldown();
     }
     public override void UpdateState()
     {
         CheckSwitchStates();
+        
     }
     public override void ExitState()
     {
-        // playerContext.CanMove = true;
+        playerContext.CanMove = true;
         playerContext.CanParry = false;
+        playerContext.Anim.ResetTrigger("block");
+        playerContext.IsBlocking = false;
     }
 
     public override void CheckSwitchStates()
@@ -31,7 +36,7 @@ public class PlayerBlockState : State
             SwitchState(new PlayerParryState(playerContext));
         }
         
-        if (!playerContext.IsBlocking) {
+        if (playerContext.BlockFinished) {
             if (playerContext.IsMovementPressed) {
                 if (playerContext.IsRunPressed) {
                     SwitchState(new PlayerRunState(playerContext));

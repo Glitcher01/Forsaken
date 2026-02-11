@@ -12,26 +12,29 @@ public class PlayerParryState : State
     {
         Debug.Log("Parrying");
         playerContext.CanParry = true;
-        // TODO: parry animation
+        playerContext.Anim.SetTrigger("parry");
+        //to-do: find a better way to trigger the stun state
+        playerContext.Manager.PlayerParry();
     }
     public override void UpdateState()
     {
         CheckSwitchStates();
     }
     public override void ExitState()
-    {        
+    {   
+        playerContext.Anim.ResetTrigger("parry");
         Debug.Log("Parried");
     }
 
     public override void CheckSwitchStates() {
-        if (playerContext.IsParrying) return;
-        if (playerContext.IsBlocking) {
-            SwitchState(new PlayerBlockState(playerContext, false)); // don't allow repeated parries - reblock
-        }
+        // if (playerContext.IsParrying) return;
+        // if (playerContext.IsBlocking) {
+        //     SwitchState(new PlayerBlockState(playerContext, false)); // don't allow repeated parries - reblock
+        // }
 
-        else if (playerContext.IsMovementPressed) {
+        if (playerContext.IsMovementPressed) {
             if (playerContext.IsRunPressed) {
-                SwitchState(new PlayerRunState(playerContext));
+                SwitchState(new PlayerDashState(playerContext));
             }
             else {
                 SwitchState(new PlayerWalkState(playerContext));

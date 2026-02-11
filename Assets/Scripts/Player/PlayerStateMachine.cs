@@ -14,7 +14,6 @@ public class PlayerStateMachine : StateMachine, IDamageable
     [SerializeField] private float dashDistance = 5f;
     [SerializeField] private float parryTiming = 2.5f;
     [SerializeField] private float parryCooldown = 2.5f;
-    [SerializeField] private float blockDamageDamper = 0.5f;
 
     [Header("Object References")]
     [SerializeField] private GameManager manager;
@@ -37,6 +36,7 @@ public class PlayerStateMachine : StateMachine, IDamageable
     private bool isDashPressed;
     private bool isHurt; 
     private bool attackFinished = false;
+    private bool blockFinished = true;
     private bool shootStarted = false;
     private bool shootFinished = false;
     private bool dashStarted = false;
@@ -89,6 +89,7 @@ public class PlayerStateMachine : StateMachine, IDamageable
     public bool IsParrying {get {return isParrying;} set {isParrying = value;}}
     public bool IsHurt{get {return isHurt;} set {isHurt = value;}}
     public bool AttackFinished {get {return attackFinished; } set {attackFinished = value;}}
+    public bool BlockFinished {get {return blockFinished; } set {blockFinished = value;}}
     public bool ShootStarted {get {return shootStarted; } set {shootStarted = value;}}
     public bool ShootFinished {get {return shootFinished; } set {shootFinished = value;}}
     public bool DashStarted {get {return dashStarted; } set {dashStarted = value;}}
@@ -241,28 +242,23 @@ public class PlayerStateMachine : StateMachine, IDamageable
         IsParrying = false;
     }
 
+    public void StartParry()
+    {
+        Debug.Log("starting parry");
+        StartCoroutine(StartParryInternal());
+        IsHurt = false;
+        CanParry = false; 
+        IsBlocking = false;
+    }
     public void StartParryCooldown() {
         StartCoroutine(StartParryCooldownInternal());
     }
     public void ApplyDamage(int damage) {
-        if (IsParrying) return;
-        float damper = 1f;
-        if (IsBlocking) {
-            if (CanParry) {
-                StartCoroutine(StartParryInternal());
-                IsHurt = false;
-                CanParry = false; // Can only parry once during a block? TODO: check
-                return;
-            }
-            // damper = blockDamageDamper;  
-        }
-        else {
-            damper = 1 / blockDamageDamper; // TODO - do reverse of this lol - only did this cuz we are using ints and fractional damage floats will cast to 0
-        }
-        if (Time.time > canTakeDamage && !isDashing)
-        {
+        Debug.Log("apply damage");
+        if (Time.time > canTakeDamage && !isDashing && !IsParrying)
+        {   Debug.Log("taking damage");
             canTakeDamage = Time.time + Cooldown;
-            Health -= (int) (damage * damper); //TODO: check if we need to do casting here. 
+            Health -= damage; 
             IsHurt = true;
         }
         UpdateHealthText();
@@ -282,6 +278,19 @@ public class PlayerStateMachine : StateMachine, IDamageable
     void OnAttackAnimationFinish()
     {
         AttackFinished = true;
+        swordHitbox.enabled = false;
+    }
+
+    void OnBlockAnimationStart()
+    {
+        BlockFinished = false;
+        swordHitbox.enabled = true;
+
+    }
+
+    void OnBlockAnimationFinish()
+    {
+        BlockFinished = true;
         swordHitbox.enabled = false;
     }
 
