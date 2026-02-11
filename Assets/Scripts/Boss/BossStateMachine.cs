@@ -29,6 +29,7 @@ public class BossStateMachine : StateMachine, IDamageable
     private int hurtFinished = 0;
     private int introFinished = 0;
     private int health;
+    private ParticleSystem damageTakenParticles;
 
     private float lastDashTime = 0;
 
@@ -59,6 +60,7 @@ public class BossStateMachine : StateMachine, IDamageable
         base.Init();
         sprite = transform.Find("Sprite");
         Health = 100;
+        damageTakenParticles = sprite.Find("hit received particles").GetComponent<ParticleSystem>();
     }
 
     protected override void EnterBeginningState()
@@ -111,7 +113,9 @@ public class BossStateMachine : StateMachine, IDamageable
             Health -= damage;
             Debug.Log("Enemy Health: " + Health);
             flashCharacter();
-            
+
+            damageTakenParticles.Play();
+
         }
         if (Health % StunInterval == 0 && !isStunned)
         {

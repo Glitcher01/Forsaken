@@ -58,7 +58,7 @@ public class PlayerStateMachine : StateMachine, IDamageable
     private Transform groundCheck;
     private Player_Ranged rangedWeapon;
     private int currentParryCooldownId;
-
+    private ParticleSystem damageTakenParticles;
     //getters and settesr
     public GameManager Manager {get {return manager;}}
     public bool CanMove {get {return canMove;} set {canMove = value;}}
@@ -119,6 +119,8 @@ public class PlayerStateMachine : StateMachine, IDamageable
         groundCheck = transform.Find("groundedCheck");
         swordHitbox = sprite.Find("sword").GetComponent<BoxCollider2D>();
         rangedWeapon = GetComponentInChildren<Player_Ranged>();
+        damageTakenParticles = sprite.Find("hit received particles").GetComponent<ParticleSystem>();
+
         //set player input callbacks
         playerInput.CharacterControls.Move.started += OnMovementPerformed;
         playerInput.CharacterControls.Move.canceled += OnMovementCancelled;
@@ -259,6 +261,8 @@ public class PlayerStateMachine : StateMachine, IDamageable
             canTakeDamage = Time.time + Cooldown;
             Health -= damage; 
             IsHurt = true;
+            
+            damageTakenParticles.Play();
         }
         UpdateHealthText();
         if (Health <= 0f)
