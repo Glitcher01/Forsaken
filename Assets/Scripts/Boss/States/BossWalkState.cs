@@ -1,22 +1,22 @@
 using UnityEngine;
 public class BossWalkState : State
 {
-    private BossStateMachine bossContext;
+    private BossStateMachine dogContext;
     public BossWalkState(BossStateMachine currentContext) : base(currentContext)
     {
-        bossContext = currentContext;
+        dogContext = currentContext;
     }
     public override void EnterState()
     {
-        bossContext.Anim.Play("Walk");
+        dogContext.Anim.Play("Walk");
         
     }
     public override void UpdateState()
     {
-        Vector3 target = new Vector3(bossContext.Player.gameObject.transform.position.x, bossContext.RB.gameObject.transform.position.y, 0f);
-        Vector3 currentPos = new Vector3(bossContext.RB.gameObject.transform.position.x, bossContext.RB.gameObject.transform.position.y, 0f);
+        Vector3 target = new Vector3(dogContext.Player.gameObject.transform.position.x, dogContext.RB.gameObject.transform.position.y, 0f);
+        Vector3 currentPos = new Vector3(dogContext.RB.gameObject.transform.position.x, dogContext.RB.gameObject.transform.position.y, 0f);
         Vector3 direction = (target - currentPos).normalized;
-        bossContext.AppliedMovementX = direction.x * bossContext.MoveSpeed;
+        dogContext.AppliedMovementX = direction.x * dogContext.MoveSpeed;
         
         CheckSwitchStates();
     }
@@ -26,12 +26,12 @@ public class BossWalkState : State
 
     public override void CheckSwitchStates()
     {
-        if (bossContext.IsStunned)
+        if (dogContext.IsStunned)
         {   
-            SwitchState(new BossStunState(bossContext));
-        } else if (bossContext.InRange())
+            SwitchState(new BossStunState(dogContext));
+        } else if (dogContext.InRange())
         {
-            SwitchState(new BossAttackState(bossContext));
+            SwitchState(new BossAttackState(dogContext));
         }
     }
 }
