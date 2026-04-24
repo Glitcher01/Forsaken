@@ -64,6 +64,10 @@ public class GameManager : MonoBehaviour
         bossStateMachine = boss.GetComponent<BossStateMachine>();
         playerStateMachine = player.GetComponent<PlayerStateMachine>();
         bossStateMachine.BossDeath += CheckWinStatus;
+        if (bossStateMachine != null)
+        {
+            bossStateMachine.AddedEnemy += OnAddedEnemy;
+        }
         if (mobRushManager != null)
         {
             mobRushManager.AddedEnemy += OnAddedEnemy;
@@ -94,6 +98,7 @@ public class GameManager : MonoBehaviour
     }
     public void BeginNextStage()
     {
+        EndChase();
         currentStage += 1;
         cutsceneManager.PlayCutScene(currentStage);
         AudioControl.Instance.FadeMusic(true, false);
@@ -108,10 +113,14 @@ public class GameManager : MonoBehaviour
     }
     public void EndChase()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach (GameObject enemy in enemies)
+        //GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (StateMachine enemy in angryEnemies)
         {
-            enemy.SetActive(false);
+            if (enemy != bossStateMachine)
+            {
+                enemy.gameObject.SetActive(false);
+            }
+            
         }
     }
 
@@ -177,6 +186,7 @@ public class GameManager : MonoBehaviour
         if (success)
         {
             AudioControl.Instance.PlaySFX("time-slow", playerStateMachine.gameObject);
+            playerStateMachine.Shockwave.PlayShockwave();
         }
     }
     public void UnlockPlayerAbility(int ability)
@@ -201,6 +211,7 @@ public class GameManager : MonoBehaviour
         {
             if (currentStage >= 4 || numStages < 3)
             {
+                AudioControl.Instance.FadeMusic(true, false);
                 gameOver = true;
                 playerStateMachine.OnDisable();
                 fightStarted = false;
@@ -221,6 +232,7 @@ public class GameManager : MonoBehaviour
         }
         else if (playerStateMachine.Health <= 0)
         {
+            AudioControl.Instance.FadeMusic(true, false);
             deathShader?.SetActive(false);
             gameOver = true;
             playerStateMachine.OnDisable();
